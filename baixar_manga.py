@@ -3,9 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 from progress.bar import Bar
 import shutil
+from search_manga import chosen_manga
 
 
-link_anime = input('Entre com link do anime: ')
+link_anime = chosen_manga()
 
 #Selecionar capitulo 
 numero_capitulo = input('Entre com o entervalo dos capitulos separado com  -   :  ')
