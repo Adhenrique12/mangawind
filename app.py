@@ -32,6 +32,7 @@ capitulos_link = [] #todos os links dos capitulos
 for capitulos in capituloss:
     capitulos_link.append(str(capitulos.attrs['href'])) 
 
+capitulos_link = capitulos_link[::-1]
 #Baixando as imagens dos capitulos
 
 
