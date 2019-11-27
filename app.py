@@ -16,7 +16,7 @@ fim_capitulo = -1 * int(numero_capitulo[2::])
 
 #Iniciar url e fazer soup
 manga = requests.get(link_anime)
-soup = BeautifulSoup(manga.text,'html.parser')
+soup = BeautifulSoup(manga.text,'lxml')
 
 #Apanhar o nome do manga a ser baixado
 nome_anime = soup.body.h1.find_all(string=True) #Apanhar nome anime
@@ -40,7 +40,7 @@ count = 0
 for capitulo_link in capitulos_link:
     count += 1
     capitulo_links = requests.get(capitulo_link)
-    soup_capitulo = BeautifulSoup(capitulo_links.text,'html.parser')
+    soup_capitulo = BeautifulSoup(capitulo_links.text,'lxml')
 
     #Encontrar as imagens
     class_imagem = soup_capitulo.find(class_= "vung-doc")
