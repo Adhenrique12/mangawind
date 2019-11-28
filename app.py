@@ -9,9 +9,11 @@ from search_manga import chosen_manga
 link_anime = chosen_manga()
 
 #Selecionar capitulo 
-numero_capitulo = input('Entre com o entervalo dos capitulos separado com  -   :  ')
-comeco_capitulo = -1 * int(numero_capitulo[0])
-fim_capitulo = -1 * int(numero_capitulo[2::])
+numero_capitulo = input('Entre com o entervalo dos capitulos separado com  -  s:  ')
+
+numero_capitulo = numero_capitulo.split('-',1)
+comeco_capitulo = int(numero_capitulo[0])
+fimcapitulo = int(numero_capitulo[1])
 
 
 #Iniciar url e fazer soup
@@ -33,12 +35,19 @@ for capitulos in capituloss:
     capitulos_link.append(str(capitulos.attrs['href'])) 
 
 capitulos_link = capitulos_link[::-1]
+
+#Select range to download chapter
+chapter_chose = []
+chapter_chose = capitulos_link[comeco_capitulo:fimcapitulo]
+
+
+
 #Baixando as imagens dos capitulos
 
 
-bar1 = Bar('Baixando', max = len(capitulos_link))
+bar1 = Bar('Baixando', max = len(chapter_chose))
 count = 0
-for capitulo_link in capitulos_link:
+for capitulo_link in chapter_chose:
     count += 1
     capitulo_links = requests.get(capitulo_link)
     soup_capitulo = BeautifulSoup(capitulo_links.text,'lxml')
@@ -68,16 +77,3 @@ for capitulo_link in capitulos_link:
     bar.finish()
     bar1.next()
 bar1.finish()
-
-
-    
-
-      
-
-
-
-
-
-
-
-
