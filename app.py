@@ -5,46 +5,38 @@ from progress.bar import Bar
 import shutil
 from search_manga import chosen_manga
 
-
 link_anime = chosen_manga()
 
-#Selecionar capitulo 
+#Choose chapters
 numero_capitulo = input('Entre com o entervalo dos capitulos separado com  -  s:  ')
-
 numero_capitulo = numero_capitulo.split('-',1)
 comeco_capitulo = int(numero_capitulo[0])
 fimcapitulo = int(numero_capitulo[1])
 
-
-#Iniciar url e fazer soup
+# Initialize url and make a soup
 manga = requests.get(link_anime)
 soup = BeautifulSoup(manga.text,'lxml')
 
-#Apanhar o nome do manga a ser baixado
+# Take the name of the manga that should be downloaded
 nome_anime = soup.body.h1.find_all(string=True) #Apanhar nome anime
 print(str(nome_anime[0]))
 
-#Apanhar os links dos capitulos
+# Take the chapter links
 cap_manga = soup.find(class_= "chapter-list")
 capituloss = cap_manga.find_all('a') #Div Link dos capitulos
 
-
-capitulos_link = [] #todos os links dos capitulos
+capitulos_link = [] # The link of all chapters
 
 for capitulos in capituloss:
     capitulos_link.append(str(capitulos.attrs['href'])) 
 
 capitulos_link = capitulos_link[::-1]
 
-#Select range to download chapter
+# Select range to download chapter
 chapter_chose = []
 chapter_chose = capitulos_link[comeco_capitulo:fimcapitulo]
 
-
-
-#Baixando as imagens dos capitulos
-
-
+# Download the chapters' images
 bar1 = Bar('Baixando', max = len(chapter_chose))
 count = 0
 for capitulo_link in chapter_chose:
@@ -52,14 +44,14 @@ for capitulo_link in chapter_chose:
     capitulo_links = requests.get(capitulo_link)
     soup_capitulo = BeautifulSoup(capitulo_links.text,'lxml')
 
-    #Encontrar as imagens
+    # Find the images
     class_imagem = soup_capitulo.find(class_= "vung-doc")
     tag_imagem = class_imagem.find_all('img')
-    imagens = [] #Lista de todas as imagens do capitulo
+    imagens = [] # The list of all images in the chapter
     for img in tag_imagem:
         imagens.append(str(img.attrs['src'])) 
 
-    #Baixando imagem
+    # Downloading images
     newpath = str(nome_anime[0]) + str(count) + '/'
     os.makedirs(newpath)
 
