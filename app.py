@@ -40,8 +40,6 @@ capitulos_link = capitulos_link[::-1]
 chapter_chose = []
 chapter_chose = capitulos_link[comeco_capitulo:fimcapitulo]
 
-
-
 #Baixando as imagens dos capitulos
 
 

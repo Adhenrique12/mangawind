@@ -7,7 +7,7 @@ def chosen_manga():
     def search_result() -> str:
         manga = input("What manga do you want to search for? ")
         manga = manga.replace(' ', '_')
-        search = r.post(website+ 'search/' + manga)
+        search = r.post(website + 'search/' + manga)
         # Return the search result as html
         return search.text
 
