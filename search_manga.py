@@ -3,7 +3,7 @@ import requests as r
 
 website = "https://mangakakalot.com/"
 
-def chosen_manga():
+def chosen_manga() -> str:
     def search_result() -> str:
         manga = input("What manga do you want to search for? ")
         manga = manga.replace(' ', '_')
@@ -23,10 +23,9 @@ def chosen_manga():
         # Return the list of links from the search result
         return choices
 
-    def choose_manga(manga_links):
+    def choose_manga(manga_links: list) -> str:
         choices = manga_links
         choice = int(input("Type the number of the manga of your choice "))
-        print(choices)
         return choices[choice - 1]
 
     soup = BeautifulSoup(search_result(), 'lxml')

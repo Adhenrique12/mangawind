@@ -9,3 +9,6 @@ def convert_to_pdf():
             continue
         chapters.append(Image.open(chapter))
     first_chapter.save('chapter.pdf', save_all=True, append_images=chapters[1::])
+
+def handle_dir(current_dir: str):
+    pass
