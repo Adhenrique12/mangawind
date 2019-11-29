@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from progress.bar import Bar
 import shutil
-from search_manga import chosen_manga
+from manga_manipulation import chosen_manga, convert_to_pdf
 
 link_anime = chosen_manga()
 
@@ -40,7 +40,6 @@ else:
     chosen_chapters = chapters_link[first_chapter:last_chapter + 1]
 
 # Download the chapters' images
-bar1 = Bar('Downloading', max = len(chosen_chapters))
 count = 0
 for chapter_link in chosen_chapters:
     count += 1
@@ -63,12 +62,13 @@ for chapter_link in chosen_chapters:
     for image in images:
         counter += 1
         number = str(counter)
-        full_path = newpath + str(manga_name[0]) + number + '.jpg'
+        full_path = newpath + number + '.jpg'
         response = requests.get(image, stream=True)
         with open(full_path, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
         bar.next()
+    os.chdir(newpath)
+    convert_to_pdf()
+    os.chdir('..')
     bar.finish()
-    bar1.next()
-bar1.finish()
