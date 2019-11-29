@@ -19,22 +19,25 @@ soup = BeautifulSoup(manga.text,'lxml')
 
 # Take the name of the manga that should be downloaded
 manga_name = soup.body.h1.find_all(string=True) #Apanhar nome anime
-print(str(manga_name[0]))
 
 # Take the chapter links
-manga_chapter = soup.find(class_= "chapter-list")
-chapters = manga_chapter.find_all('a') #Div Link dos capitulos
+manga_chapter = soup.find(class_="chapter-list")
+chapters = manga_chapter.find_all('a') #Div link of all manga chapters
 
 chapters_link = [] # The link of all chapters
 
-for capitulos in chapters:
-    chapters_link.append(str(capitulos.attrs['href'])) 
+for manga_chapters in chapters:
+    chapters_link.append(str(manga_chapters.attrs['href'])) 
 
 chapters_link = chapters_link[::-1]
 
 # Select range to download chapter
 chosen_chapters = []
-chosen_chapters = chapters_link[first_chapter:last_chapter]
+
+if chapters[last_chapter] == chapters[-1]:
+    chosen_chapters = chapters_link[first_chapter:]
+else:
+    chosen_chapters = chapters_link[first_chapter:last_chapter + 1]
 
 # Download the chapters' images
 bar1 = Bar('Downloading', max = len(chosen_chapters))
@@ -45,7 +48,7 @@ for chapter_link in chosen_chapters:
     chapter_soup = BeautifulSoup(current_chapter_link.text,'lxml')
 
     # Find the images
-    image_class = chapter_soup.find(class_= "vung-doc")
+    image_class = chapter_soup.find(class_="vung-doc")
     image_tag = image_class.find_all('img')
     images = [] # The list of all images in the chapter
     for img in image_tag:
@@ -55,7 +58,7 @@ for chapter_link in chosen_chapters:
     newpath = str(manga_name[0]) + str(count) + '/'
     os.makedirs(newpath)
 
-    bar = Bar('Downloading', max = len(images))
+    bar = Bar('Downloading', max=len(images))
     counter = 0
     for image in images:
         counter += 1
