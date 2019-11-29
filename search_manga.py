@@ -26,7 +26,6 @@ def chosen_manga() -> str:
     def choose_manga(manga_links: list) -> str:
         choices = manga_links
         choice = int(input("Type the number of the manga of your choice "))
-        print(choices)
         return choices[choice - 1]
 
     soup = BeautifulSoup(search_result(), 'lxml')
