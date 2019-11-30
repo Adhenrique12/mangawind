@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import requests as r
+from PIL import Image
+import os
 
 website = "https://mangakakalot.com/"
 
@@ -30,3 +32,11 @@ def chosen_manga() -> str:
 
     soup = BeautifulSoup(search_result(), 'lxml')
     return choose_manga(manga_choice())
+
+def convert_to_pdf(chapter_name: str="chapter"):
+    manga_folder = os.listdir()
+    first_chapter = Image.open(manga_folder[0])
+    chapters = []
+    for chapter in manga_folder:
+        chapters.append(Image.open(chapter))
+    first_chapter.save(chapter_name + '.pdf', save_all=True, append_images=chapters[1::])

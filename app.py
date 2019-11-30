@@ -3,22 +3,21 @@ import requests
 from bs4 import BeautifulSoup
 from progress.bar import Bar
 import shutil
-from search_manga import chosen_manga
+from manga_manipulation import chosen_manga, convert_to_pdf
 
 link_anime = chosen_manga()
 
 #Choose chapters
-number_of_chapters = input('Enter a chapter interval separated by hifens: ')
-number_of_chapters = number_of_chapters.split('-',1)
-first_chapter = int(number_of_chapters[0])
-last_chapter = int(number_of_chapters[1])
+number_of_chapters = input('Enter a chapter interval separated by hifens: ').split('-',1)
+first_chapter = int(number_of_chapters[0]) - 1
+last_chapter = int(number_of_chapters[1]) - 1
 
 # Initialize url and make a soup
 manga = requests.get(link_anime)
 soup = BeautifulSoup(manga.text,'lxml')
 
 # Take the name of the manga that should be downloaded
-manga_name = soup.body.h1.find_all(string=True) #Apanhar nome anime
+manga_name = soup.body.h1.find_all(string=True) 
 
 # Take the chapter links
 manga_chapter = soup.find(class_="chapter-list")
@@ -40,13 +39,15 @@ else:
     chosen_chapters = chapters_link[first_chapter:last_chapter + 1]
 
 # Download the chapters' images
-bar1 = Bar('Downloading', max = len(chosen_chapters))
-count = 0
 for chapter_link in chosen_chapters:
-    count += 1
+    
     current_chapter_link = requests.get(chapter_link)
     chapter_soup = BeautifulSoup(current_chapter_link.text,'lxml')
 
+    #Find the Chapter number
+    chapter_number = chapter_soup.body.h2.find_all(string=True)
+    chapter_mun = str(chapter_number[0])
+    chapter_nu = [int(s) for s in chapter_mun.split() if s.isdigit()] 
     # Find the images
     image_class = chapter_soup.find(class_="vung-doc")
     image_tag = image_class.find_all('img')
@@ -55,7 +56,7 @@ for chapter_link in chosen_chapters:
         images.append(str(img.attrs['src'])) 
 
     # Downloading images
-    newpath = str(manga_name[0]) + str(count) + '/'
+    newpath = str(manga_name[0]) + '_' + str(chapter_nu[0]) + '/'
     os.makedirs(newpath)
 
     bar = Bar('Downloading', max=len(images))
@@ -63,12 +64,13 @@ for chapter_link in chosen_chapters:
     for image in images:
         counter += 1
         number = str(counter)
-        full_path = newpath + str(manga_name[0]) + number + '.jpg'
+        full_path = newpath + number + '.jpg'
         response = requests.get(image, stream=True)
         with open(full_path, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
         bar.next()
+    os.chdir(newpath)
+    convert_to_pdf(str(manga_name[0]) + '_' + str(chapter_nu[0]))
+    os.chdir('..')
     bar.finish()
-    bar1.next()
-bar1.finish()
