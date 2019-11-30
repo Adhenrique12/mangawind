@@ -69,7 +69,7 @@ for chapter_link in chosen_chapters:
     for image in images:
         counter += 1
         number = str(counter)
-        full_path = newpath + number + '.jpg'
+        full_path = newpath + number
         response = requests.get(image, stream=True)
         with open(full_path, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)

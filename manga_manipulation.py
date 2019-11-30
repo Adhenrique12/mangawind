@@ -2,12 +2,13 @@ from bs4 import BeautifulSoup
 import requests as r
 from PIL import Image
 import os
+import natsort
+
 
 website = "https://mangakakalot.com/"
-
+manga = input("What manga do you want to search for? ")
 def chosen_manga() -> str:
-    def search_result() -> str:
-        manga = input("What manga do you want to search for? ")
+    def search_result(manga=manga) -> str:
         manga = manga.replace(' ', '_')
         search = r.post(website + 'search/' + manga)
         # Return the search result as html
@@ -17,11 +18,12 @@ def chosen_manga() -> str:
         print('These are the results: \n')
         choices = []
         counter = 0
+        totalnum_chapters = soup.find_all('em', class_='story_chapter')[0].text
         for link in soup.find_all('h3', class_='story_name'):
             counter += 1
             choices.append(link.a['href'])
             # Print a numbered list of the search result
-            print(counter, link.a.text)
+            print(counter, link.a.text + ' >> Last chapter: ' + str(totalnum_chapters.strip()))
         # Return the list of links from the search result
         return choices
 
@@ -35,6 +37,7 @@ def chosen_manga() -> str:
 
 def convert_to_pdf(chapter_name: str="chapter"):
     manga_folder = os.listdir()
+    print(manga_folder)
     first_chapter = Image.open(manga_folder[0])
     chapters = []
     for chapter in manga_folder:
