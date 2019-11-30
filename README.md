@@ -16,7 +16,9 @@ A script for automatically downloading and converting manga to PDF.
 It let's you download the episodes you specify without having to worry about converting it to pdf and organizing it. It's perfect for those that want to read manga offline on their phones or computers.
 
 ##  2. <a name='Dependencies'></a>Dependencies  
-Make sure you have all of the required dependencies install.
+Make sure you have all of the required dependencies install. 
+If you don't have pip, instal pip. And when using python3, change pip to pip3.
+
 LXML  
 `sudo pip install lxml`  
 
@@ -25,3 +27,15 @@ Pillow
 
 Requests  
 `sudo pip install requests`  
+
+BeutifulSoup 
+
+ `sudo pip install bs4` 
+
+Shutil
+
+`sudo pip install shutil`
+
+Progress Bar
+
+`sudo pip install progress.bar`
