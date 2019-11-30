@@ -10,7 +10,12 @@ link_anime = chosen_manga()
 #Choose chapters
 number_of_chapters = input('Enter a chapter interval separated by hifens: ').split('-',1)
 first_chapter = int(number_of_chapters[0]) - 1
-last_chapter = int(number_of_chapters[1]) - 1
+if (len(number_of_chapters) == 1):
+    last_chapter = first_chapter
+else:
+    last_chapter = int(number_of_chapters[1]) - 1
+        
+
 
 # Initialize url and make a soup
 manga = requests.get(link_anime)
