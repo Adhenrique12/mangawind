@@ -35,7 +35,6 @@ def chosen_manga() -> str:
 
 def convert_to_pdf(chapter_name: str="chapter"):
     manga_folder = os.listdir()
-    print(manga_folder)
     first_chapter = Image.open(manga_folder[0])
     chapters = []
     for chapter in manga_folder:
