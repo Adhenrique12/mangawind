@@ -28,14 +28,11 @@ Pillow
 Requests  
 `sudo pip install requests`  
 
-BeutifulSoup 
-
+BeutifulSoup  
  `sudo pip install bs4` 
 
-Shutil
-
+Shutil  
 `sudo pip install shutil`
 
-Progress Bar
-
+Progress Bar  
 `sudo pip install progress.bar`
