@@ -2,8 +2,6 @@ from bs4 import BeautifulSoup
 import requests as r
 from PIL import Image
 import os
-import natsort
-
 
 website = "https://mangakakalot.com/"
 manga = input("What manga do you want to search for? ")

@@ -50,9 +50,10 @@ for chapter_link in chosen_chapters:
     chapter_soup = BeautifulSoup(current_chapter_link.text,'lxml')
 
     #Find the Chapter number
-    chapter_number = chapter_soup.body.h2.find_all(string=True)
-    chapter_mun = str(chapter_number[0])
-    chapter_nu = [int(s) for s in chapter_mun.split() if s.isdigit()] 
+    chapter_number = chapter_link.split('/')[-1].split('_')[-1]
+    print(chapter_number)
+    #chapter_number = chapter_number.split('_')[-1]
+    
     # Find the images
     image_class = chapter_soup.find(class_="vung-doc")
     image_tag = image_class.find_all('img')
@@ -61,7 +62,7 @@ for chapter_link in chosen_chapters:
         images.append(str(img.attrs['src'])) 
 
     # Downloading images
-    newpath = str(manga_name[0]) + '_' + str(chapter_nu[0]) + '/'
+    newpath = str(manga_name[0]) + '_' + str(chapter_number) + '/'
     os.makedirs(newpath)
 
     bar = Bar('Downloading', max=len(images))
@@ -69,13 +70,13 @@ for chapter_link in chosen_chapters:
     for image in images:
         counter += 1
         number = str(counter)
-        full_path = newpath + number
+        full_path = newpath + number + '.jpg'
         response = requests.get(image, stream=True)
         with open(full_path, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
         bar.next()
     os.chdir(newpath)
-    convert_to_pdf(str(manga_name[0]) + '_' + str(chapter_nu[0]))
+    convert_to_pdf(str(manga_name[0]) + '_' + str(chapter_number))
     os.chdir('..')
     bar.finish()
