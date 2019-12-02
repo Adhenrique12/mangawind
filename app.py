@@ -63,7 +63,11 @@ for chapter_link in chosen_chapters:
 
     # Downloading images
     newpath = str(manga_name[0]) + '_' + str(chapter_number) + '/'
-    os.makedirs(newpath)
+    try:
+        os.makedirs(newpath)
+    except:
+        print('This chapter already exists.')
+        break
 
     bar = Bar('Downloading', max=len(images))
     counter = 0
