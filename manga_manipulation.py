@@ -16,12 +16,12 @@ def chosen_manga() -> str:
         print('These are the results: \n')
         choices = []
         counter = 0
-        totalnum_chapters = soup.find_all('em', class_='story_chapter')[0].text
+        totalnum_chapters = soup.find_all('em', class_='story_chapter')
         for link in soup.find_all('h3', class_='story_name'):
             counter += 1
             choices.append(link.a['href'])
             # Print a numbered list of the search result
-            print(counter, link.a.text + ' >> Last chapter: ' + str(totalnum_chapters.strip()))
+            print(counter, link.a.text + ' >> Last chapter: ' + str(totalnum_chapters[counter].text.strip()))
         # Return the list of links from the search result
         return choices
 
