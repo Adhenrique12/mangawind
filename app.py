@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup # type: ignore
 from progress.bar import Bar # type: ignore
 import shutil
-from manga_manipulation import MangaManipulation 
+from MangaManipulation import MangaManipulation 
 
 link_anime = MangaManipulation().run()
 
