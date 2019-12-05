@@ -3,9 +3,9 @@ import requests
 from bs4 import BeautifulSoup # type: ignore
 from progress.bar import Bar # type: ignore
 import shutil
-from manga_manipulation import chosen_manga, convert_to_pdf
+from manga_manipulation import MangaManipulation 
 
-link_anime = chosen_manga()
+link_anime = MangaManipulation().run()
 
 #Choose chapters
 number_of_chapters: list = input('Enter a chapter interval separated by hifens: ').split('-',1)
@@ -77,6 +77,6 @@ for chapter_link in chosen_chapters:
         del response
         bar.next()
     os.chdir(newpath)
-    convert_to_pdf(str(manga_name[0]) + '_' + str(chapter_number))
+    MangaManipulation.convert_to_pdf(str(manga_name[0]) + '_' + str(chapter_number))
     os.chdir('..')
     bar.finish()
