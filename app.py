@@ -1,17 +1,17 @@
 import os
 import requests
-from bs4 import BeautifulSoup
-from progress.bar import Bar
+from bs4 import BeautifulSoup # type: ignore
+from progress.bar import Bar # type: ignore
 import shutil
 from manga_manipulation import chosen_manga, convert_to_pdf
 
 link_anime = chosen_manga()
 
 #Choose chapters
-number_of_chapters = input('Enter a chapter interval separated by hifens: ').split('-',1)
-first_chapter = int(number_of_chapters[0]) - 1
+number_of_chapters: list = input('Enter a chapter interval separated by hifens: ').split('-',1)
+first_chapter: int = int(number_of_chapters[0]) - 1
 if (len(number_of_chapters) == 1):
-    last_chapter = first_chapter
+    last_chapter: int = first_chapter
 else:
     last_chapter = int(number_of_chapters[1]) - 1
 
@@ -20,13 +20,13 @@ manga = requests.get(link_anime)
 soup = BeautifulSoup(manga.text,'lxml')
 
 # Take the name of the manga that should be downloaded
-manga_name = soup.body.h1.find_all(string=True) 
+manga_name: str = soup.body.h1.find_all(string=True) 
 
 # Take the chapter links
 manga_chapter = soup.find(class_="chapter-list")
 chapters = manga_chapter.find_all('a') #Div link of all manga chapters
 
-chapters_link = [] # The link of all chapters
+chapters_link: list = [] # The link of all chapters
 
 for manga_chapters in chapters:
     chapters_link.append(str(manga_chapters.attrs['href'])) 
@@ -34,7 +34,7 @@ for manga_chapters in chapters:
 chapters_link = chapters_link[::-1]
 
 # Select range to download chapter
-chosen_chapters = []
+chosen_chapters: list = []
 
 if chapters[last_chapter] == chapters[-1]:
     chosen_chapters = chapters_link[first_chapter:]
@@ -48,19 +48,17 @@ for chapter_link in chosen_chapters:
     chapter_soup = BeautifulSoup(current_chapter_link.text,'lxml')
 
     #Find the Chapter number
-    chapter_number = chapter_link.split('/')[-1].split('_')[-1]
-    print(chapter_number)
-    #chapter_number = chapter_number.split('_')[-1]
+    chapter_number: int = chapter_link.split('/')[-1].split('_')[-1]
     
     # Find the images
     image_class = chapter_soup.find(class_="vung-doc")
-    image_tag = image_class.find_all('img')
-    images = [] # The list of all images in the chapter
+    image_tag: list = image_class.find_all('img')
+    images: list = [] # The list of all images in the chapter
     for img in image_tag:
         images.append(str(img.attrs['src'])) 
 
     # Downloading images
-    newpath = str(manga_name[0]) + '_' + str(chapter_number) + '/'
+    newpath: str = str(manga_name[0]) + '_' + str(chapter_number) + '/'
     try:
         os.makedirs(newpath)
     except:
@@ -68,7 +66,7 @@ for chapter_link in chosen_chapters:
         break
 
     bar = Bar('Downloading', max=len(images))
-    counter = 0
+    counter: int = 0
     for image in images:
         counter += 1
         number = str(counter)
