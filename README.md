@@ -35,4 +35,4 @@ Shutil
 `sudo pip install shutil`
 
 Progress Bar  
-`sudo pip install progress.bar`
+`sudo pip install progress`
