@@ -29,7 +29,7 @@ Requests
 `sudo pip install requests`  
 
 BeutifulSoup  
- `sudo pip install bs4` 
+ `sudo pip install beautifulsoup4` 
 
 Shutil  
 `sudo pip install shutil`
