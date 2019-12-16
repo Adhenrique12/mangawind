@@ -16,7 +16,7 @@ class MangaFinder:
 
     @property
     def soup(self):
-        return BeautifulSoup(requests.get(self.link_anime).text,'lxml')
+        return BeautifulSoup(requests.get(self.link_anime).text,'html5lib')
 
     @property
     def manga_name(self):
@@ -55,7 +55,7 @@ class Downloader:
 
     @property
     def soup(self):
-        return BeautifulSoup(requests.get(self.chapter_link).text,'lxml')
+        return BeautifulSoup(requests.get(self.chapter_link).text,'html5lib')
 
     @property
     def newpath(self):
@@ -92,3 +92,4 @@ def run():
         os.chdir(manga.newpath)
         MangaManipulation.convert_to_pdf(str(app.manga_name[0]) + '_' + str(manga.chapter_number))
         os.chdir('..')
+run()

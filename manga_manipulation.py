@@ -14,7 +14,7 @@ class MangaManipulation:
 
     @property
     def soup(self):
-        return BeautifulSoup(self.search_result(self.manga), 'lxml')
+        return BeautifulSoup(self.search_result(self.manga), 'html5lib')
     
     def search_result(self, manga: str) -> str:
         manga = manga.replace(' ', '_')
@@ -47,8 +47,11 @@ class MangaManipulation:
     @staticmethod
     def convert_to_pdf(chapter_name: str="chapter"):
         manga_folder: list = os.listdir()
-        first_chapter = Image.open(manga_folder[0])
+        first_chapter = Image.open('1.jpg')
+        count = 2
         chapters: list = []
-        for chapter in manga_folder:
-            chapters.append(Image.open(chapter))
+        chapters.append(Image.open('2.jpg'))
+        while(count != len(manga_folder)):
+            chapters.append(Image.open(str(count) + '.jpg'))
+            count += 1
         first_chapter.save(chapter_name + '.pdf', save_all=True, append_images=chapters[1::])
