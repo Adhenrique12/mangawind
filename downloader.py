@@ -16,7 +16,7 @@ class MangaFinder:
 
     @property
     def soup(self):
-        return BeautifulSoup(requests.get(self.link_anime).text,'html5lib')
+        return BeautifulSoup(requests.get(self.link_anime).text,'lxml')
 
     @property
     def manga_name(self):
@@ -55,7 +55,7 @@ class Downloader:
 
     @property
     def soup(self):
-        return BeautifulSoup(requests.get(self.chapter_link).text,'html5lib')
+        return BeautifulSoup(requests.get(self.chapter_link).text,'lxml')
 
     @property
     def newpath(self):

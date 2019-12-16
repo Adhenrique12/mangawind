@@ -14,7 +14,7 @@ class MangaManipulation:
 
     @property
     def soup(self):
-        return BeautifulSoup(self.search_result(self.manga), 'html5lib')
+        return BeautifulSoup(self.search_result(self.manga), 'lxml')
     
     def search_result(self, manga: str) -> str:
         manga = manga.replace(' ', '_')
