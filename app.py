@@ -1,17 +1,24 @@
-import click
+import argparse
 from manga_manipulation import MangaManipulation
 import downloader
 
-@click.group()
+
 def main():
-    pass
+    parser = argparse.ArgumentParser(
+        description="A command-line utility for downloading manga"
+    )
+    parser.add_argument('-s', '--search', type=str, help='Search for manga')
+    parser.add_argument('-c', '--choose', type=int, help='Choose a manga')
+    parser.add_argument('-n', '--number-of-chapter', dest='chapters', type=str, help='Number of chapters to download')
+    args = parser.parse_args()
 
-@main.command()
-@click.argument('search')
-def search(search):
-    manga = MangaManipulation()
-    manga.manga = search
-    return manga.search_result(manga.manga)
+    manga = MangaManipulation(args.search, args.choose)
+    # Display the search result if -c is not used
+    manga.run()
+    # Take that input and download specified manga and chapters
+    if args.chapters is not None:
+        downloader.run(args.chapters)
+    return manga
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
