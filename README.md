@@ -19,20 +19,5 @@ It let's you download the episodes you specify without having to worry about con
 Make sure you have all of the required dependencies install. 
 If you don't have pip, instal pip. And when using python3, change pip to pip3.
 
-LXML  
-`sudo pip install lxml`  
-
-Pillow  
-`sudo pip install Pillow`  
-
-Requests  
-`sudo pip install requests`  
-
-BeutifulSoup  
- `sudo pip install beautifulsoup4` 
-
-Shutil  
-`sudo pip install shutil`
-
-Progress Bar  
-`sudo pip install progress`
+This will istall all dependencies
+`pip install -r requirements.txt`  
