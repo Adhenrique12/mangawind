@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup # type: ignore
 from progress.bar import Bar # type: ignore
 import shutil
-from app import main as MangaManipulation
+from app import manga as MangaManipulation
 
 class MangaFinder:
     def __init__(self, link_anime: str, number_of_chapters: list):
@@ -84,7 +84,8 @@ class Downloader:
 
 # Download the chapters' images
 def run(chapter_interval: str):
-    app = MangaFinder(MangaManipulation().run(), chapter_interval.split('-',1))
+    print(MangaManipulation.run())
+    app = MangaFinder(MangaManipulation.run(), chapter_interval.split('-',1))
     for chapter_link in app.chosen_chapters:
         manga = Downloader(chapter_link,app.manga_name)
         manga.makedir()

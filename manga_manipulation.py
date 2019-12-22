@@ -7,7 +7,7 @@ import os
 class MangaManipulation:
     def __init__(self, manga, choice):
         self.website: str = "https://mangakakalot.com/"
-        self.manga = manga
+        self.manga: str = manga
         self.choice = choice
 
     @property
