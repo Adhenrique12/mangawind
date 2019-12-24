@@ -53,7 +53,6 @@ class Downloader:
             image_tag: list = self.soup.find(class_="container-chapter-reader").find_all('img')
         else:
             image_tag: list = self.soup.find(class_="vung-doc").find_all('img')
-        
         images: list = [] #The list of all images in the chapter
         for img in image_tag:
             images.append(str(img.attrs['src'])) 
@@ -90,7 +89,6 @@ class Downloader:
 
 # Download the chapters' images
 def run(chapter_interval: str):
-    print(MangaManipulation.run())
     app = MangaFinder(MangaManipulation.run(), chapter_interval.split('-',1))
     for chapter_link in app.chosen_chapters:
         manga = Downloader(chapter_link,app.manga_name)
