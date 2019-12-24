@@ -51,7 +51,7 @@ class MangaManipulation:
         count = 2
         chapters: list = []
         chapters.append(Image.open('2.jpg'))
-        while(count != len(manga_folder)):
+        while(count != len(manga_folder) + 1):
             chapters.append(Image.open(str(count) + '.jpg'))
             count += 1
         first_chapter.save(chapter_name + '.pdf', save_all=True, append_images=chapters[1::])
