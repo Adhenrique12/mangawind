@@ -3,11 +3,17 @@ from manga_manipulation import MangaManipulation
 import downloader
 
 parser = argparse.ArgumentParser(
-    description="A command-line utility for downloading manga"
-)
-parser.add_argument('-s', '--search', type=str, help='Search for manga')
-parser.add_argument('-c', '--choose', type=int, help='Choose a manga')
-parser.add_argument('-n', '--number-of-chapter', dest='chapters', type=str, help='Number of chapters to download')
+    prog='mangawind',
+    description="MangaWind is a command-line utility for downloading and converting manga to pdf.",
+    usage="""
+        %(prog)s -s [manga]
+        %(prog)s -s [manga] -c [manga index number] -n [number of chapters]""",
+    epilog="""Use the -s flag for searching for manga and [-c][-n] flags to download them. If only one of them is provided it will
+    either raise an error or not do anything."""
+    )
+parser.add_argument('-s', '--search',metavar='[manga]', type=str, help='Search for manga')
+parser.add_argument('-c', '--choose', metavar='[manga index number]', type=int, help='Choose a manga')
+parser.add_argument('-n', '--number-of-chapter', dest='chapters', metavar='[number of chapters]', type=str, help='Number of chapters to download')
 args = parser.parse_args()
 
 manga = MangaManipulation(args.search, args.choose)
