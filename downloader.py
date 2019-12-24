@@ -24,6 +24,8 @@ class MangaFinder:
 
     @property
     def manga_chapter(self):
+        if self.soup.find(class_="chapter-list") == None:
+            return self.soup.find(class_="row-content-chapter").find_all('a')
         return self.soup.find(class_="chapter-list").find_all('a')
 
     @property
@@ -47,7 +49,11 @@ class Downloader:
         self.manga_name = manga_name[0]
     @property
     def images(self):
-        image_tag: list = self.soup.find(class_="vung-doc").find_all('img')
+        if self.soup.find(class_="vung-doc")  == None:
+            image_tag: list = self.soup.find(class_="container-chapter-reader").find_all('img')
+        else:
+            image_tag: list = self.soup.find(class_="vung-doc").find_all('img')
+        
         images: list = [] #The list of all images in the chapter
         for img in image_tag:
             images.append(str(img.attrs['src'])) 
