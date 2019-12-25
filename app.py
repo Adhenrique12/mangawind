@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser(
     )
 parser.add_argument('-s', '--search',metavar='[manga]', type=str, help='Search for manga')
 parser.add_argument('-c', '--choose', metavar='[manga index number]', type=int, help='Choose a manga')
-parser.add_argument('-n', '--number-of-chapter', dest='chapters', metavar='[number of chapters]', type=str, help='Number of chapters to download')
+parser.add_argument('-n', '--number-of-chapter', nargs='+', dest='chapters', metavar='[number of chapters]', type=str, help='Number of chapters to download')
 args = parser.parse_args()
 
 manga = MangaManipulation(args.search, args.choose)
