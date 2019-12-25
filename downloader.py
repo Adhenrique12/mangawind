@@ -6,9 +6,9 @@ import shutil
 from app import manga as MangaManipulation
 
 class MangaFinder:
-    def __init__(self, link_anime: str, number_of_chapters: list):
-        self.link_anime = link_anime
-        self.first_chapter = int(number_of_chapters[0]) - 1
+    def __init__(self, manga_link: str, number_of_chapters: list):
+        self.manga_link = manga_link
+        self.first_chapter = int(number_of_chapters[0])
         if len(number_of_chapters) == 1:
             self.last_chapter = self.first_chapter
         else:
@@ -16,7 +16,7 @@ class MangaFinder:
 
     @property
     def soup(self):
-        return BeautifulSoup(requests.get(self.link_anime).text,'lxml')
+        return BeautifulSoup(requests.get(self.manga_link).text,'lxml')
 
     @property
     def manga_name(self):
@@ -73,8 +73,8 @@ class Downloader:
             print('This chapter already exists.')
             exit()
     
-    def downloaded_image(self):
-        bar = Bar('Downloading', max=len(self.images))
+    def downloaded_image(self, episode_number):
+        bar = Bar(f'Downloading episode {episode_number}', max=len(self.images))
         counter: int = 0
         for image in self.images:
             counter += 1
@@ -89,11 +89,11 @@ class Downloader:
 
 # Download the chapters' images
 def run(chapter_interval: str):
-    app = MangaFinder(MangaManipulation.run(), chapter_interval.split('-',1))
+    app = MangaFinder(MangaManipulation.run(), chapter_interval)
     for chapter_link in app.chosen_chapters:
-        manga = Downloader(chapter_link,app.manga_name)
+        manga = Downloader(chapter_link, app.manga_name)
         manga.makedir()
-        manga.downloaded_image()
+        manga.downloaded_image(manga.chapter_number)
         os.chdir(manga.newpath)
         MangaManipulation.convert_to_pdf(str(app.manga_name[0]) + '_' + str(manga.chapter_number))
         os.chdir('..')
