@@ -88,12 +88,19 @@ class Downloader:
         bar.finish()
 
 # Download the chapters' images
-def run(chapter_interval: str):
+def run(chapter_interval: str, pdf_only: bool):
     app = MangaFinder(MangaManipulation.run(), chapter_interval)
     for chapter_link in app.chosen_chapters:
         manga = Downloader(chapter_link, app.manga_name)
         manga.makedir()
         manga.downloaded_image(manga.chapter_number)
         os.chdir(manga.newpath)
-        MangaManipulation.convert_to_pdf(str(app.manga_name[0]) + '_' + str(manga.chapter_number))
-        os.chdir('..')
+
+        chapter = app.manga_name[0] + '_' + str(manga.chapter_number)
+        if pdf_only:
+            MangaManipulation.convert_to_pdf(chapter)
+            shutil.move(chapter + '.pdf', '..')
+            os.chdir('..')
+            shutil.rmtree(chapter + '/')
+        else:
+            os.chdir('..')
