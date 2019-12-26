@@ -14,6 +14,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-s', '--search',metavar='[manga]', type=str, help='Search for manga')
 parser.add_argument('-c', '--choose', metavar='[manga index number]', type=int, help='Choose a manga')
 parser.add_argument('-n', '--number-of-chapter', nargs='+', dest='chapters', metavar='[number of chapters]', type=str, help='Number of chapters to download')
+parser.add_argument('--download-images', action='store_false', help='Download all the chapters as images')
 args = parser.parse_args()
 
 manga = MangaManipulation(args.search, args.choose)
@@ -23,7 +24,7 @@ def main():
     manga.run()
     # Take that input and download specified manga and chapters
     if args.chapters is not None:
-        downloader.run(args.chapters)
+        downloader.run(args.chapters, pdf_only=args.download_images)
 
 if __name__ == "__main__":
     main()
