@@ -25,7 +25,7 @@ Arch
 Ubuntu  
 `sudo apt install pip3`  
 
-Install mangawind:  
+**Install mangawind:**  
 
 Arch  
 `sudo pip install .`  
