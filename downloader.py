@@ -40,7 +40,7 @@ class MangaFinder:
         if self.manga_chapter[self.last_chapter] == self.manga_chapter[-1]:
             return self.chapters_link[self.first_chapter:]
         else:
-            return self.chapters_link[self.first_chapter:self.last_chapter + 1] 
+            return self.chapters_link[self.first_chapter - 1:self.last_chapter + 1] 
 
 class Downloader:
     def __init__(self,chapter_link, manga_name):
