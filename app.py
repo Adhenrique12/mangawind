@@ -27,4 +27,4 @@ def main():
         downloader.run(args.chapters, pdf_only=args.download_images)
 
 if __name__ == "__main__":
-    main()
+        main()
