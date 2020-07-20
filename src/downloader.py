@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup as bs # The source code parser
 from settings import *              # Global constants
 from request import *               # Requesting and downloading
-from stringhelpers import *         # String utility helpers
+from stringhandler import *         # String utility helpers
 import sys                          # To grab the arguments
 import searchmanga                  # To grab the link of the manga
 

@@ -1,6 +1,6 @@
-from stringhanders import * # String utility helpers
-from settings import *      # Global constants
-import requests             # Library to make HTTP requests
+import stringhandler   # String utility helpers
+import settings        # Global constants
+import requests        # Library to make HTTP requests
 
 # Send a request via HTTP
 def send_request(url, binary = False):
