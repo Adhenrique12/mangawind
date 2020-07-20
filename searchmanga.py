@@ -12,7 +12,11 @@ def find_manga_pages_links(seriesName):
 
     return parsed_html.find_all("a", {"class": "item-img"})
 
-for x in range(len(find_manga_pages_links("naruto"))):  
-    print(find_manga_pages_links("naruto")[x].get("href"))
+
+
+manga_pages_links = find_manga_pages_links("dragon_ball") #exemplo mudar
+
+for x in range(len(manga_pages_links)):                  
+    print(manga_pages_links[x].get("href"))
 
 
