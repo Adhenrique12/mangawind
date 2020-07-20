@@ -15,7 +15,7 @@ def download_manga_episode(seriesName, episodeNum):
         return None
 
     while True: # Loop through the pages until the last one
-        manga_url = get_manga_url(seriesName, episodeNum, current_page)
+        manga_url = ge_manga_url(seriesName, episodeNum, current_page)
         page_url  = get_page_url(seriesName, episodeNum, current_page)
         request   = send_request(page_url)
         raw_html  = request.text

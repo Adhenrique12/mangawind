@@ -16,7 +16,7 @@ def find_manga_pages_links(seriesName):
 
 manga_pages_links = find_manga_pages_links("dragon_ball") #exemplo mudar
 
-for x in range(len(manga_pages_links)):                 
+for x in range(len(manga_pages_links)):                  
     print(manga_pages_links[x].get("href"))
 
 
