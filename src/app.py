@@ -30,18 +30,17 @@ def select_manga():
 def select_chapters_to_download():
     
     lista_chapters = list_of_all_chapters(select_manga())
-    #print(lista_chapters)
-    dicionario = {}
     lista_final = [Separator('= List of Chapters =')]
+
     for x in lista_chapters:
         dicionario = dict(name=x)
         lista_final.append(dicionario)
-    #print(dicionario)
-    #print(lista_final)
+    
+    
     questions = [
         {
                 'type': 'checkbox',
-                'qmark': 'Ⓜ📃',
+                'qmark': 'Ⓜ  📃',
                 'message': 'Select toppings',
                 'name': 'toppings',
                 'choices': lista_final,
@@ -49,15 +48,10 @@ def select_chapters_to_download():
                 if len(answer) == 0 else True
         }
     ]
-    #return lista_final
+    
     return prompt(questions, style=custom_style_2)
    
 print(select_chapters_to_download())
 
-#lista_dicionario = []
-#manga_link = {'manga': 'naruto'}
-#manga_link = {'manga': 'naruto1'}
-#manga_link = {'manga': 'naruto2'}
-#lista_dicionario.append(manga_link)
-#print(lista_dicionario[0])
+
     
