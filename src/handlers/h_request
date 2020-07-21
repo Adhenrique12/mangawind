@@ -10,6 +10,3 @@ def send_request(url, binary = False):
         exit() 
     
     return request 
-
-
-

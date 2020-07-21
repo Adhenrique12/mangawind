@@ -35,7 +35,3 @@ def list_of_all_chapters(url):
         lista_chapters.append(lista_chapters_raw[x].attrs['href'])
     
     return lista_chapters
-
-
-
-
