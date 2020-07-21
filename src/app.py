@@ -30,26 +30,27 @@ def select_manga():
 def select_chapters_to_download():
     
     lista_chapters = list_of_all_chapters(select_manga())
+    #print(lista_chapters)
     dicionario = {}
-    lista_final = []
+    lista_final = [Separator('= List of Chapters =')]
     for x in lista_chapters:
-        dicionario["name"] = x
+        dicionario = dict(name=x)
         lista_final.append(dicionario)
-    print(lista_final)
+    #print(dicionario)
+    #print(lista_final)
     questions = [
         {
                 'type': 'checkbox',
                 'qmark': 'Ⓜ📃',
                 'message': 'Select toppings',
                 'name': 'toppings',
-                'choices': lista_final #Pa corrige
-                ,
+                'choices': lista_final,
                 'validate': lambda answer: 'You must choose at least one topping.' \
                 if len(answer) == 0 else True
         }
     ]
-    return lista_final
-    #return prompt(questions, style=custom_style_2)
+    #return lista_final
+    return prompt(questions, style=custom_style_2)
    
 print(select_chapters_to_download())
 
