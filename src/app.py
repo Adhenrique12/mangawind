@@ -42,7 +42,7 @@ def select_chapters_to_download():
                 'qmark': 'Ⓜ📃',
                 'message': 'Select toppings',
                 'name': 'toppings',
-                'choices': lista_final
+                'choices': lista_final #Pa corrige
                 ,
                 'validate': lambda answer: 'You must choose at least one topping.' \
                 if len(answer) == 0 else True
