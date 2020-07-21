@@ -39,5 +39,5 @@ def list_of_all_chapters(url):
 
 
 
-print(list_of_all_chapters('https://manganelo.com/manga/dragon_ball_super')[-1])
+#print(list_of_all_chapters('https://manganelo.com/manga/dragon_ball_super'))
 #print(list_of_search_results("naruto"))

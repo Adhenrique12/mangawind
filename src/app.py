@@ -1,5 +1,5 @@
 from PyInquirer import prompt, Separator
-from searchmanga import list_of_search_results
+from searchmanga import list_of_search_results, list_of_all_chapters
 from examples import custom_style_2
 
 def manga_name():
@@ -28,33 +28,30 @@ def select_manga():
     return prompt(questions, style=custom_style_2)['link_manga']
 
 def select_chapters_to_download():
+    
+    lista_chapters = list_of_all_chapters(select_manga())
+    dicionario = {}
+    lista_final = []
+    for x in lista_chapters:
+        dicionario["name"] = x
+        lista_final.append(dicionario)
+    print(lista_final)
     questions = [
         {
                 'type': 'checkbox',
                 'qmark': 'Ⓜ📃',
                 'message': 'Select toppings',
                 'name': 'toppings',
-                'choices': [ 
-                            Separator('= Capitulos ='),
-                                    {
-                                        'name': 'Ham'
-                                    },
-                                    {
-                                        'name': 'Ground Meat'
-                                    },
-                                    {
-                                        'name': 'Bacon'
-                                    },
-            
-                            ],
+                'choices': lista_final
+                ,
                 'validate': lambda answer: 'You must choose at least one topping.' \
                 if len(answer) == 0 else True
         }
     ]
-
-    answers = prompt(questions, style=custom_style_2)
+    return lista_final
+    #return prompt(questions, style=custom_style_2)
    
-print(select_manga())
+print(select_chapters_to_download())
 
 #lista_dicionario = []
 #manga_link = {'manga': 'naruto'}
