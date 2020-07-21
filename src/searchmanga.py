@@ -3,23 +3,18 @@ import requests                         # Library to make HTTP requests
 from request import send_request
 from settings import SEARCH 
 
+def soup(search_url):
+    raw_html        = send_request(search_url).text
+
+    # Scrap the html to find the chapter link
+    return bs(raw_html, "html.parser")
+
+
 def find_manga_pages_links(seriesName):
     
     search_url      = SEARCH + seriesName
-    raw_html        = send_request(search_url).text
 
-    # Scrap the html to find the manga page link
-    parsed_html     = bs(raw_html, "html.parser")
-
-    return parsed_html.find_all("a", {"class": "item-img"})
-
-def find_chapter_link(mangaPageLink):
-    raw_html        = send_request(mangaPageLink).text
-
-    # Scrap the html to find the chapter link
-    parsed_html     = bs(raw_html, "html.parser")
-
-    return parsed_html.find("img", {"id": "img"}).get("src")
+    return soup(search_url).find_all("a", {"class": "item-img"})
 
 
 def list_of_search_results(mangaName):
@@ -30,4 +25,19 @@ def list_of_search_results(mangaName):
         lista_resultados.append(manga_pages_links[x].get("href"))
     return lista_resultados
 
+
+def list_of_all_chapters(url):
+
+    lista_chapters_raw = soup(url).find_all("a", {"class" : "chapter-name text-nowrap"}, "href")
+    lista_chapters = []
+
+    for x in range(len(lista_chapters_raw)):                  
+        lista_chapters.append(lista_chapters_raw[x].attrs['href'])
+    
+    return lista_chapters
+
+
+
+
+print(list_of_all_chapters('https://manganelo.com/manga/dragon_ball_super')[-1])
 #print(list_of_search_results("naruto"))
