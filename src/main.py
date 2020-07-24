@@ -1,9 +1,9 @@
-from scrapers import manganelo
+from scrapers.scrapers import Scrapers
 import cli_app as cli
 from handlers import request_h
 from bs4 import BeautifulSoup as bs
 
-
+new_class = Scrapers()
 
 
 def soup(search_url: str):
@@ -12,4 +12,4 @@ def soup(search_url: str):
     return bs(raw_html, "lxml")
 
 link = soup('https://manganelo.com/chapter/read_naruto_manga_online_free3/chapter_699.1')
-print(manganelo.get_chapter_page(link))
+print(new_class.get_chapter_page(link))
