@@ -44,7 +44,7 @@ class Scrapers:
         return results
 
 
-    def get_chapter_page(self, chosen_chapter_url, single_page=True, page_number=1):
+    def get_chapter_page(self, chosen_chapter_url: str, single_page=True, page_number=1):
         """
         Returns the page with the images to be scraped by MangaWind.
         if single_page = False it uses the page_number variable to loop

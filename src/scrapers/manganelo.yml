@@ -4,4 +4,4 @@ SERVER_LINK_SEARCH_SPLIT: '_'
 SERVER_LINK_SEARCH_TAG: 'div.search-story-item div.item-right a.item-title'
 SERVER_CHAPTERS_TAG: 'div.panel-story-chapter-list a.chapter-name.text-nowrap'
 SERVER_IMG_TAG: 'div.container-chapter-reader img'
-SINGLE_PAGE_READER: 'True'
+SINGLE_PAGE_READER: True
