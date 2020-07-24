@@ -4,14 +4,21 @@ import shutil
 import os
 
 
-def download_images(chapter_imgs: list, manga_name: str):
-    os.makedirs(f'./{manga_name}')
+def download_images(chapter_imgs: list, chapter_name: str):
+    try:
+        os.makedirs(f'./{chapter_name}')
+    except FileExistsError:
+        pass
+
     number = 0
+    bar = Bar(f'Downloading chapter {chapter_name}', max=len(chapter_imgs))
     for image_url in chapter_imgs:
         number += 1
         image = send_request(image_url, binary=True)
-        with open(f'./{manga_name}/{number}.jpg' ,'wb') as file:
+        with open(f'./{chapter_name}/{number}.jpg' ,'wb') as file:
             shutil.copyfileobj(image.raw, file)
+        bar.next()  
+    bar.finish()
 
-lista = ['https://s3.mkklcdnv3.com/mangakakalot/r1/read_naruto_manga_online_free3/vol72_chapter_6991_the_seal_of_reconciliation/1.jpg']
+lista = ['https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.XmpsNQ0ZvIsPBPGD3DyfKwHaEK%26pid%3DApi&f=1', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.XmpsNQ0ZvIsPBPGD3DyfKwHaEK%26pid%3DApi&f=1']
 download_images(lista, 'naruto')
