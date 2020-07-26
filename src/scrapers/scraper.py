@@ -2,9 +2,7 @@ from bs4 import BeautifulSoup as bs
 import yaml
 
 
-
 class Scrapers:
-
     def __init__(self):
         SERVER_CONFIG_FILE = 'scrapers/manganelo.yml'
         try:

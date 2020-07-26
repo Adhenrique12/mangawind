@@ -1,0 +1,7 @@
+SERVER_LINK: 'https://read.mangabat.com/'
+SERVER_LINK_SEARCH: 'https://m.mangabat.com/search/'
+SERVER_LINK_SEARCH_SPLIT: '_'
+SERVER_LINK_SEARCH_TAG: 'div.panel-list-history div.item-right a.item-title'
+SERVER_CHAPTERS_TAG: 'div.panel-story-chapter-list ul.row-content-chapter li.a-h a.chapter-name.text-nowrap'
+SERVER_IMG_TAG: 'div.container-chapter-reader img'
+SINGLE_PAGE_READER: True

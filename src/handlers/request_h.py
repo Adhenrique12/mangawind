@@ -1,10 +1,15 @@
-import requests        # Library to make HTTP requests
+import cloudscraper # Library to make HTTP requests
 
+# Initialize scraper with firefox user_agent
+scraper = cloudscraper.create_scraper('firefox')
 # Send a request via HTTP
 def send_request(url, binary=False):
+    '''
+    Checks if the page exists and if it does it proceeds with a GET request
+    '''
     try:
-        request = requests.get(url, stream = binary)
+        request = scraper.get(url, stream = binary)
     except:
-        print(f"Could not connect with:\n{url}")
+        print(f"Could not connect with: {url}")
         exit()
-    return request 
+    return request

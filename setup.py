@@ -8,5 +8,5 @@ setup(name='MangaWind',
       url='https://github.com/Adhenrique12/mangawind',
       platforms='Unix',
       license='MIT',
-      py_modules=['lxml', 'requests', 'bs4', 'pyyaml', 'progress']
+      py_modules=['lxml', 'bs4', 'pyyaml', 'progress', 'cloudscraper']
      )
