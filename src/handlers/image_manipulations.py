@@ -1,7 +1,7 @@
-from request_h import send_request
-from progress.bar import Bar
 import shutil
 import os
+from .request_h import send_request 
+from progress.bar import Bar # type: ignore
 
 
 def download_images(chapter_imgs: list, chapter_name: str):
@@ -13,7 +13,7 @@ def download_images(chapter_imgs: list, chapter_name: str):
     except FileExistsError:
         pass
 
-    number = 0
+    number: int = 0
     bar = Bar(f'Downloading {chapter_name}', max=len(chapter_imgs))
     for image_url in chapter_imgs:
         number += 1

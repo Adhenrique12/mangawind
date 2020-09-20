@@ -1,4 +1,4 @@
-import cloudscraper # Library to make HTTP requests
+import cloudscraper # type: ignore
 
 # Initialize scraper with firefox user_agent
 scraper = cloudscraper.create_scraper('firefox')
